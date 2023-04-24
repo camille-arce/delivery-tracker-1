@@ -64,8 +64,9 @@
         <div>
         <%= a_package.description %>
         </div>
-        <div style="color: red"> 
-        Supposed to arrive on <%= a_package.arrival_date %> 
+        <div>
+          <div style="color: <%= (Time.now - a_package.arrival_date) >= 3.days ? 'red' : 'black' %>">
+          Supposed to arrive on <%= a_package.arrival_date %> 
         </div>
         <div>
         <%= a_package.details %>

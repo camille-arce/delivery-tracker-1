@@ -2,7 +2,7 @@ class CreatePackages < ActiveRecord::Migration[6.0]
   def change
     create_table :packages do |t|
       t.string :description
-      t.datetime :arrival_date
+      t.date :arrival_date
       t.string :details
       t.string :status
 
