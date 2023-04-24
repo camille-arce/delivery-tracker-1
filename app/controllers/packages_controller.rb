@@ -2,7 +2,10 @@ class PackagesController < ApplicationController
   def index
     matching_packages = Package.all
 
-    @list_of_packages = matching_packages.order({ :created_at => :desc })
+    @list_of_packages = matching_packages
+
+    @list_of_waiting_on = @list_of_packages.where({ :status => "waiting_on" }).order({ :created_at => :desc })
+    @list_of_received = @list_of_packages.where({ :status => "received" }).order({ :created_at => :desc })
 
     render({ :template => "packages/index.html.erb" })
   end
@@ -39,7 +42,7 @@ class PackagesController < ApplicationController
     the_package.description = params.fetch("query_description")
     the_package.arrival_date = params.fetch("query_arrival_date")
     the_package.details = params.fetch("query_details")
-    the_package.status = params.fetch("query_status")
+    the_package.status = "received"
 
     if the_package.valid?
       the_package.save
